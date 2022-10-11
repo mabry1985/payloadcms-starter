@@ -1,23 +1,42 @@
 import { CollectionConfig } from 'payload/types';
+import { isAdmin } from '../utilities/collection-helpers';
 
 const Artists: CollectionConfig = {
   slug: 'artists',
-  auth: true,
   admin: {
     useAsTitle: 'name',
   },
   access: {
-    read: () => true,
+    create:  ({ req: { user }, data} ) => {
+      console.warn(data);
+      
+      if (!user) return false;
+      return true;
+    },
+    read: isAdmin,
+    update: isAdmin,
+    delete: isAdmin,
   },
   fields: [
     {
-      name: 'name',
+      name: 'firstName',
       type: 'text',
       required: true,
+      label: 'First Name',
+      defaultValue: 'Artist Name',
+    },
+    {
+      name: 'lastName',
+      type: 'text',
+      required: true,
+      label: 'Last Name',
+      admin: {
+        description: 'Only the first name will be used in the public facing site.',
+      }
     },
     {
       name: 'bio',
-      type: 'richText',
+      type: 'textarea',
       required: true,
       label: 'Artist Bio',
     },
@@ -32,11 +51,18 @@ const Artists: CollectionConfig = {
       label: 'Artist Website',
     },
     {
-      name: 'profile-image',
+      name: 'profileImage',
       type: 'upload',
       relationTo: 'profile-images',
       label: 'Profile Image',
       required: true,
+    }, 
+    {
+      name: 'portfolioImages',
+      type: 'relationship',
+      relationTo: 'portfolio-images',
+      label: 'Portfolio Images',
+      hasMany: true,
     }
   ],
 };

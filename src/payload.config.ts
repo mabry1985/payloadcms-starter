@@ -7,7 +7,7 @@ import Media from './collections/Media';
 import Admin from './collections/Admin';
 
 export default buildConfig({
-  serverURL: 'http://localhost:3000',
+  serverURL: 'http://localhost:7860',
   admin: {
     user: Admin.slug,
   },
@@ -21,7 +21,12 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },
+  cors: '*', // Allow all origins
+  // csrf: [ // whitelist of domains to allow cookie auth from
+  // 'localhost:5173',
+  // ],
   graphQL: {
-    schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
+    disable: true,
+    // schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
   },
 });

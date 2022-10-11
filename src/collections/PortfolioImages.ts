@@ -8,36 +8,38 @@ const PortfolioImages: CollectionConfig = {
   },
   access: {
     read: () => true,
+    create:  ({ req: { user }, data} ) => {
+      console.log(data);
+      
+      if (!user) return false;
+      return true;
+    },
   },
   upload: {
     staticURL: '/portfolio-images',
     staticDir: 'portfolio-images',
     imageSizes: [
       {
-        name: 'thumbnail',
-        width: 300,
-        height: null,
+        name: 'small',
+        width: 375,
+        height: 375,
+        position: 'centre',
+      },
+      {
+        name: 'medium',
+        width: 768,
+        height: 768,
         position: 'centre',
       },
       {
         name: 'large',
-        width: 768,
-        height: null,
-        position: 'centre',
-      },
-      {
-        name: 'tablet',
         width: 1024,
-        // By specifying `null` or leaving a height undefined,
-        // the image will be sized to a certain width,
-        // but it will retain its original aspect ratio
-        // and calculate a height automatically.
-        height: null,
+        height: 1024,
         position: 'centre',
       },
     ],
-    adminThumbnail: 'thumbnail',
-    mimeTypes: ['image/*'],
+    adminThumbnail: 'small',
+    mimeTypes: ['image/*.jpeg', 'image/*.jpg', 'image/*.png'],
   },
   fields: [
     {
@@ -45,12 +47,6 @@ const PortfolioImages: CollectionConfig = {
       label: 'Alt Text',
       type: 'text',
       required: true,
-    },
-    {
-      name: 'artist',
-      label: 'Artist Name',
-      type: 'relationship',
-      relationTo: 'artists',
     },
   ],
 };

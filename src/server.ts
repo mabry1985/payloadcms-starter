@@ -6,13 +6,15 @@ const app = express();
 
 // Redirect root to Admin panel
 app.get('/', (_, res) => {
+  console.log('response', res);
+  
   res.redirect('/admin');
 });
 
 // Initialize Payload
 payload.init({
   secret: process.env.PAYLOAD_SECRET,
-  mongoURL: process.env.MONGODB_URI,
+  mongoURL: process.env.MONGODB_URL,
   express: app,
   onInit: () => {
     payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`)
@@ -21,4 +23,4 @@ payload.init({
 
 // Add your own express routes here
 
-app.listen(3000);
+app.listen(7860);

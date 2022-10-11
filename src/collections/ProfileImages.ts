@@ -42,11 +42,6 @@ const ProfileImages: CollectionConfig = {
   },
   fields: [
     {
-      name: 'artist-name',
-      type: 'relationship',
-      relationTo: 'artists',
-    },
-    {
       name: 'alt',
       label: 'Alt Text',
       type: 'text',
