@@ -1,4 +1,5 @@
 import { CollectionConfig } from 'payload/types';
+import { isAdmin } from '../utilities/collection-helpers';
 
 const PortfolioImages: CollectionConfig = {
   slug: 'portfolio-images',
@@ -8,12 +9,9 @@ const PortfolioImages: CollectionConfig = {
   },
   access: {
     read: () => true,
-    create:  ({ req: { user }, data} ) => {
-      console.log(data);
-      
-      if (!user) return false;
-      return true;
-    },
+    create: isAdmin,
+    update: isAdmin,
+    delete: isAdmin,
   },
   upload: {
     staticURL: '/portfolio-images',
@@ -39,7 +37,7 @@ const PortfolioImages: CollectionConfig = {
       },
     ],
     adminThumbnail: 'small',
-    mimeTypes: ['image/*.jpeg', 'image/*.jpg', 'image/*.png'],
+    mimeTypes: ['image/*'],
   },
   fields: [
     {

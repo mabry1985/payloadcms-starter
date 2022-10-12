@@ -1,5 +1,6 @@
 import { CollectionConfig } from 'payload/types';
 import path from 'path';
+import { isAdmin } from '../utilities/collection-helpers';
 
 const Media: CollectionConfig = {
   slug: 'media',
@@ -9,9 +10,9 @@ const Media: CollectionConfig = {
     read: () => true,
 
     // access is limited for demo purposes, remove to restore upload capability
-    create: () => false,
-    update: () => false,
-    delete: () => false,
+    create: isAdmin,
+    update: isAdmin,
+    delete: isAdmin,
   },
   admin: {
     useAsTitle: 'filename',

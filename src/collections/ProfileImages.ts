@@ -1,4 +1,5 @@
 import { CollectionConfig } from 'payload/types';
+import { isAdmin } from '../utilities/collection-helpers';
 
 // Example Collection - For reference only, this must be added to payload.config.ts to be used.
 const ProfileImages: CollectionConfig = {
@@ -9,6 +10,7 @@ const ProfileImages: CollectionConfig = {
   },
   access: {
     read: () => true,
+    create: isAdmin
   },
   upload: {
     staticURL: '/profile-images',
@@ -26,19 +28,9 @@ const ProfileImages: CollectionConfig = {
         height: 768,
         position: 'centre',
       },
-      // {
-      //   name: 'tablet',
-      //   width: 1024,
-      //   // By specifying `null` or leaving a height undefined,
-      //   // the image will be sized to a certain width,
-      //   // but it will retain its original aspect ratio
-      //   // and calculate a height automatically.
-      //   height: null,
-      //   position: 'centre',
-      // },
     ],
     adminThumbnail: 'thumbnail',
-    mimeTypes: ['image/*'],
+    mimeTypes: ['image/*.jpeg, image/*.jpg, image/*.png'],
   },
   fields: [
     {

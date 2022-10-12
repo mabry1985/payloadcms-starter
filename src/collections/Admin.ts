@@ -19,6 +19,10 @@ const User: CollectionConfig = {
     {
       name: 'isAdmin',
       type: 'checkbox',
+    },
+    {
+      name: 'name',
+      type: 'text',
     }
   ],
 };

@@ -7,13 +7,8 @@ const Artists: CollectionConfig = {
     useAsTitle: 'name',
   },
   access: {
-    create:  ({ req: { user }, data} ) => {
-      console.warn(data);
-      
-      if (!user) return false;
-      return true;
-    },
-    read: isAdmin,
+    create: isAdmin,
+    read: ()  => true,
     update: isAdmin,
     delete: isAdmin,
   },
@@ -58,11 +53,23 @@ const Artists: CollectionConfig = {
       required: true,
     }, 
     {
-      name: 'portfolioImages',
-      type: 'relationship',
-      relationTo: 'portfolio-images',
+      name: 'portfolioImagesArray', // required
+      type: 'array', // required
       label: 'Portfolio Images',
-      hasMany: true,
+      minRows: 0,
+      maxRows: 16,
+      labels: {
+        singular: 'Portfolio Image',
+        plural: 'Portfolio Images',
+      },
+      fields: [
+      {
+        name: 'portfolioImages',
+        type: 'upload',
+        relationTo: 'portfolio-images',
+        label: 'Portfolio Images',
+      }
+      ]
     }
   ],
 };
